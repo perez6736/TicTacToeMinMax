@@ -7,7 +7,7 @@ player1Turn = False
 player2Turn = False
 ComputersTurn = False
 
-def changeSpot(game,shape,x,y):
+def changeSpot(game,shape,x,y): ## fix this.
     print("change spot - " + shape)
     game[y-1][x-1] = shape 
     showBoard(game)
@@ -28,6 +28,7 @@ def showBoard(game):
 
 def checkWin(game):
     print("hello")
+    return True
 
 def computersTurn(): ## this will be a min/max algorithm - basically you will never win.
         ## min max. 
@@ -39,7 +40,10 @@ def askPlayerWhere(game, playerArray, turn): ## used recursion casue why not?
         ##do computers turn 
         print("do computer stuff")
         turn = turn + 1
-        askPlayerWhere(game, playerArray,turn)
+        if(checkWin(game)):
+            askPlayerWhere(game, playerArray,turn)
+        else:
+            print("game over")
     else:
         x = input("select a x spot on board.")
         x = int(x)
@@ -49,8 +53,10 @@ def askPlayerWhere(game, playerArray, turn): ## used recursion casue why not?
             if(y>0 and y<4):
                 changeSpot(game,playerArray[turn],x,y)
                 turn = turn + 1
-                if(!checkWin(game)):
-                    ## computersTurn -  need to wirte this 
+                if(checkWin(game)):
+                    askPlayerWhere(game, playerArray,turn)
+                else:
+                    print("game over")
             else:
                 print("invalid value")
                 askPlayerWhere(game, playerArray,turn)
@@ -63,10 +69,9 @@ def playGame():
         [0,0,0],
         [0,0,0]]
     playerArray = ["na", "na"] ##first element is player one and 2 is player 2. 
-    gameStatus = True
     showBoard(game)
     selectWhoGoesFirst(playerArray)
-    while(gameStatus):
-        askPlayerWhere(game,playerArray,1)
+    askPlayerWhere(game,playerArray,1) ## we will keep asking the player until the game is over.
+
 
 playGame()
