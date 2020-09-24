@@ -1,12 +1,5 @@
 import random
 
-x = 0
-y = 0
-gameStatus = False
-player1Turn = False
-player2Turn = False
-ComputersTurn = False
-
 def changeSpot(game,shape,x,y): ## fix this.
     print("change spot - " + shape)
     game[y-1][x-1] = shape 
@@ -34,44 +27,40 @@ def computersTurn(): ## this will be a min/max algorithm - basically you will ne
         ## min max. 
     print("min max")
 
-def askPlayerWhere(game, playerArray, turn): ## used recursion casue why not? 
-    ## check who goes first 
-    if(playerArray[0] == "X"): ## if player is X then computer is O and he goes 
-        ##do computers turn 
-        print("do computer stuff")
-        turn = turn + 1
-        if(checkWin(game)):
-            askPlayerWhere(game, playerArray,turn)
-        else:
-            print("game over")
+def askPlayerWhere():
+    x = input("select the x coordinate -")
+    y = input("select the y coordinate -")
+    x = int(x)
+    y = int(y)
+
+    if(x < 1 or x > 3 or y < 1 or y > 3):
+        print ("invalid location.")
     else:
-        x = input("select a x spot on board.")
-        x = int(x)
-        if(x>0 and x<4): ## check range 
-            y = input("select a y spot on board.")
-            y = int(y)
-            if(y>0 and y<4):
-                changeSpot(game,playerArray[turn],x,y)
-                turn = turn + 1
-                if(checkWin(game)):
-                    askPlayerWhere(game, playerArray,turn)
-                else:
-                    print("game over")
-            else:
-                print("invalid value")
-                askPlayerWhere(game, playerArray,turn)
-        else:
-            print("invalid value")
-            askPlayerWhere(game, playerArray,turn)
+        print(x)
+        print(y)
+        changeSpot(x,y)
+
+
     
 def playGame():
+    ## set game variables
     game = [[0,0,0],
-        [0,0,0],
-        [0,0,0]]
+            [0,0,0],
+            [0,0,0]]
     playerArray = ["na", "na"] ##first element is player one and 2 is player 2. 
-    showBoard(game)
-    selectWhoGoesFirst(playerArray)
-    askPlayerWhere(game,playerArray,1) ## we will keep asking the player until the game is over.
+    playerArray = selectWhoGoesFirst(playerArray)
+    Player1 = playerArray[0]
+    Player2 = playerArray[1]
 
+    showBoard(game)
+    while(True):## while the game is true - 
+        ## who goes first? O goes first. 
+        ## ask O to go first 
+        ## change the spot on the board 
+        ## check win 
+        ## computers turn goes. 
+        ## check win 
+        ## ---- if there is a winner or no more spots - end game. 
+        askPlayerWhere()
 
 playGame()
