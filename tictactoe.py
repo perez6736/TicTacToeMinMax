@@ -57,13 +57,12 @@ def playGame():
             ["-","-","-"],
             ["-","-","-"]]
     
-    player = "NA"
-    player2 = "NA"
-    computer ="NA"
+    player = "X"
+    player2 = "O"
 
     showBoard(game)
 
-    
+
     while(True):## while the game is true - 
         ## who goes first? O goes first. 
         ## ask O to go first 
