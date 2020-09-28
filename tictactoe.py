@@ -1,6 +1,6 @@
 import random
 
-def changeSpot(game,shape,x,y): ## fix this.
+def changeSpot(game,shape,spot): ## fix this.
     print("change spot - " + shape)
     game[y-1][x-1] = shape 
     showBoard(game)
@@ -27,18 +27,20 @@ def computersTurn(): ## this will be a min/max algorithm - basically you will ne
         ## min max. 
     print("min max")
 
-def askPlayerWhere():
+def askPlayerWhere(ply1):
     x = input("select the x coordinate -")
     y = input("select the y coordinate -")
     x = int(x)
     y = int(y)
+    spot = [x,y]
 
     if(x < 1 or x > 3 or y < 1 or y > 3):
         print ("invalid location.")
+        askPlayerWhere(ply1)
     else:
         print(x)
         print(y)
-        changeSpot(x,y)
+        return spot
 
 
     
@@ -61,6 +63,5 @@ def playGame():
         ## computers turn goes. 
         ## check win 
         ## ---- if there is a winner or no more spots - end game. 
-        askPlayerWhere()
 
 playGame()
