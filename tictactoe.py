@@ -109,7 +109,7 @@ def askPlayerWhere():
 
 
     
-def playGame():
+def playGame2Players():
     ## set game variables
     game = [
             ["1","2","3"],
@@ -133,4 +133,38 @@ def playGame():
         turn = turn + 1
     print(" - game over - ")
 
-playGame()
+def playGameSinglePlayer():
+        ## set game variables
+    game = [
+            ["1","2","3"],
+            ["4","5","6"],
+            ["7","8","9"]
+           ]
+    turn = 1
+    showBoard(game)
+    isGameOver = False
+
+    while(not isGameOver):## while the game is true - 
+        XorO = "X"
+        if(turn%2 != 0):
+            XorO = "X"
+        else:
+            XorO = "O"
+        spot = input("select where to go 1-9 - ")
+
+        changeSpot(spot, game, XorO)
+        isGameOver = checkIfGameisOver(game, XorO)
+        turn = turn + 1
+    print(" - game over - ")
+
+
+validInput = False
+while(not validInput):
+    players = input("how many players? - ")
+    if (players == "1"):
+        playGameSinglePlayer()
+    elif(players == "2"):
+        playGame2Players()
+    else:
+        print("invalid - try again.")
+
