@@ -1,5 +1,8 @@
 import random
 
+def isSpotValid(game, spot):
+    return True
+
 def changeSpot(spot, board, player):
     spot = int(spot)
     if spot < 1 or spot > 9:
@@ -24,15 +27,6 @@ def changeSpot(spot, board, player):
         elif(spot == 9):
             board[2][2] = player
         showBoard(board)
-        
-
-def selectWhoGoesFirst(player):
-    n = random.randint(1,2)
-    if n == 1:
-        player  = "X"
-    else:
-        player  = "O"
-    return player
 
 def showBoard(game):
     for row in game:
@@ -88,25 +82,9 @@ def checkIfGameisOver(board, XorO):
     else:
         return False
 
-def computersTurn(): ## this will be a min/max algorithm - basically you will never win.
+def computersTurn(game): ## this will be a min/max algorithm - basically you will never win.
         ## min max. 
     print("min max")
-
-def askPlayerWhere():
-    x = input("select the x coordinate -")
-    y = input("select the y coordinate -")
-    x = int(x)
-    y = int(y)
-    spot = [x,y]
-
-    if(x < 1 or x > 3 or y < 1 or y > 3):
-        print ("invalid location.")
-        askPlayerWhere()
-    else:
-        print(x)
-        print(y)
-        return spot
-
 
     
 def playGame2Players():
@@ -143,18 +121,34 @@ def playGameSinglePlayer():
     turn = 1
     showBoard(game)
     isGameOver = False
-
+    
+    ##lets make who goes first random against the computer. 
+    isplayerTurn =  True
+    z = random.randint(1,2)
+    if(z == 1):
+        isplayerTurn =  True
+    else:
+        isplayerTurn =  False
+        
     while(not isGameOver):## while the game is true - 
         XorO = "X"
         if(turn%2 != 0):
             XorO = "X"
         else:
             XorO = "O"
-        spot = input("select where to go 1-9 - ")
+        ## ask player only when its his turn. 
+        if(isplayerTurn):
+            spot = input("select where to go 1-9 - ")
 
-        changeSpot(spot, game, XorO)
-        isGameOver = checkIfGameisOver(game, XorO)
-        turn = turn + 1
+            changeSpot(spot, game, XorO)
+            isGameOver = checkIfGameisOver(game, XorO)
+            turn = turn + 1
+            isplayerTurn =  False
+        else:
+            computersTurn(game)
+            turn = turn + 1
+            isplayerTurn =  True
+
     print(" - game over - ")
 
 
